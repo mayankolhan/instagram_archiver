@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="logo"></div>
+    <h1>Instagram Archiver</h1>
+  </header>
+
+  <div class="grid">
+    <div class="stat"><b id="s-cap">0</b><span>captured</span></div>
+    <div class="stat"><b id="s-saved">0</b><span>saved</span></div>
+    <div class="stat"><b id="s-liked">0</b><span>liked</span></div>
+    <div class="stat"><b id="s-files">0</b><span>files saved</span></div>
+  </div>
+
+  <div class="actions">
+    <button id="open-saved">Open my Saved posts</button>
+    <button id="open-liked">Open my Liked posts</button>
+  </div>
+
+  <p class="note" id="pl-line">Liked/Saved list: none yet.</p>
+  <div class="actions" id="oc-actions" hidden>
+    <p class="note" id="oc-line"></p>
+    <button id="oc-stop" class="danger">■ Stop opening posts</button>
+  </div>
+
+  <fieldset>
+    <legend>Settings</legend>
+    <label class="chk"><input type="checkbox" id="autoDownload"> Auto-download media while scrolling</label>
+    <label class="chk"><input type="checkbox" id="hydrate"> Fetch full media for liked posts (1 extra request each)</label>
+    <label class="chk"><input type="checkbox" id="debug"> Debug: record raw API responses</label>
+    <label class="rng">Download delay <output id="dd-out">700</output> ms
+      <input type="range" id="downloadDelayMs" min="200" max="3000" step="100" value="700"></label>
+    <label class="rng">Scroll delay <output id="sd-out">2200</output> ms
+      <input type="range" id="scrollDelayMs" min="800" max="6000" step="200" value="2200"></label>
+    <label class="rng">Tab delay (Open each post) <output id="td-out">2500</output> ms
+      <input type="range" id="tabDelayMs" min="1200" max="10000" step="500" value="2500"></label>
+  </fieldset>
+
+  <div class="actions two">
+    <button id="export">Export manifest (JSON)</button>
+    <button id="reset" class="danger">Reset data</button>
+  </div>
+  <div class="actions" id="debug-actions" hidden>
+    <button id="debug-dump">Save debug dump (<span id="debug-held">0</span> held)</button>
+    <p class="note">With Debug on, also open Instagram's DevTools console (F12) and
+    look for pink <code>[IG&nbsp;Archiver]</code> lines &mdash; they show whether the
+    page hook loaded and what URLs it sees. Reload the Instagram tab after enabling.</p>
+  </div>
+
+  <p class="note"><b>Liked posts:</b> open the Likes page, <b>Auto-scroll</b> it to
+  collect the list, then <b>⬇ Open each post &amp; save</b> on the panel. Files land in
+  <code>Downloads/instagram-archive/liked/</code>. Already-saved posts are skipped.</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

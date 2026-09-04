@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "Instagram Archiver (Saved & Liked)",
+  "version": "1.0.0",
+  "description": "Locally archive your own saved (bookmarked) and liked Instagram posts - media + metadata - into your Downloads folder.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "instagram-archiver@local",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "permissions": [
+    "downloads",
+    "storage",
+    "unlimitedStorage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.instagram.com/*",
+    "*://*.cdninstagram.com/*",
+    "*://*.fbcdn.net/*"
+  ],
+  "background": {
+    "scripts": ["content/extract.js", "background/background.js"]
+  },
+  "action": {
+    "default_title": "Instagram Archiver",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "48": "icons/icon.svg",
+      "96": "icons/icon.svg"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.instagram.com/*"],
+      "js": ["content/extract.js", "content/injected.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["*://*.instagram.com/*"],
+      "js": ["content/extract.js", "content/bridge.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content/extract.js", "content/injected.js"],
+      "matches": ["*://*.instagram.com/*"]
+    }
+  ]
+}

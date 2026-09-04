@@ -1,0 +1,12 @@
+# Build output
+web-ext-artifacts/
+*.zip
+.web-extension-id
+
+# Dependencies
+node_modules/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.log
